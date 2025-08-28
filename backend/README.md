@@ -1,72 +1,53 @@
 # Backend de Mattilda
 
-Este es el backend de Mattilda, construido con FastAPI y SQLModel. Provee APIs REST para gestionar escuelas, estudiantes y facturas.
+Este es el backend de Mattilda, construido con FastAPI y SQLModel.
+
+---
+
+## Imágenes relevantes
+
+<div align="center">
+  <img src="../images/api_docs.png" alt="Documentación automática de la API" width="600"/>
+</div>
 
 ---
 
 ## Cómo ejecutar
 
-### 1. Crea un entorno virtual
+### Opción 1: Docker Compose
 
 ```sh
-cd backend
-python -m venv .env
+docker-compose up --build
 ```
 
-### 2. Activa el entorno
+### Opción 2: Manual
 
-- **Windows:**  
-  `.\.env\Scripts\activate`
-- **Linux/macOS:**  
-  `source .env/bin/activate`
+1. Crea un entorno virtual y actívalo.
+2. Instala dependencias:
 
-### 3. Instala las dependencias
+   ```sh
+   pip install -r requirements.txt
+   ```
 
-```sh
-pip install -r requirements.txt
-```
+3. Ejecuta el servidor:
 
-### 4. Ejecuta el servidor
-
-```sh
-uvicorn app.main:app --reload
-```
-
-La API estará disponible en [http://localhost:8000](http://localhost:8000).
+   ```sh
+   uvicorn app.main:app --reload
+   ```
 
 ---
 
 ## Archivos y carpetas importantes
 
-- `app/main.py`: Punto de entrada de FastAPI. Incluye routers y crea las tablas.
+- `app/main.py`: Punto de entrada de FastAPI.
 - `app/db.py`: Lógica de sesión y creación de base de datos.
-- `app/core/settings.py`: Configuración (por ejemplo, URL de la base de datos).
-- `app/models/`: Modelos SQLModel para `School`, `Student` e `Invoice`.
-- `app/routes/`: Routers de FastAPI para cada recurso.
-- `app/tests/`: Tests con Pytest para los endpoints.
-- `requirements.txt`: Dependencias de Python.
+- `app/models/`, `app/routes/`, `app/tests/`
+- `populate_mock_data.py`: Script para poblar la base de datos con datos de ejemplo.
 
 ---
 
 ## Ejecutar tests
 
-Desde la carpeta `backend`:
-
 ```sh
 pytest
 ```
-
----
-
-## Notas
-
-- El backend usa SQLModel (basado en SQLAlchemy) como ORM.
-- Asegúrate de que tu base de datos esté configurada en `app/core/settings.py`.
-- Todos los endpoints están documentados en `/docs` gracias a FastAPI.
-
----
-
-## Resolución de problemas
-
-- Si ves `ModuleNotFoundError: No module named 'app'`, asegúrate de ejecutar `uvicorn` desde la carpeta `backend`.
-- Si tienes errores de base de datos, revisa que esté corriendo y la cadena de conexión sea correcta.

@@ -94,3 +94,24 @@ def get_school_statement(
         .limit(limit)
     ).all()
     return invoices
+
+@router.get('/{school_id}/students', response_model=List[Student])
+def get_school_students(
+    school_id: int,
+    session: SessionDep,
+    offset: int = 0,
+    limit: Annotated[int, Query(le=100)] = 100
+) -> list[Student]:
+    """
+    Recupera los estudiantes asociados a una escuela por su ID.
+    """
+    school = session.get(School, school_id)
+    if not school:
+        raise HTTPException(status_code=404, detail='Escuela no encontrada')
+    students = session.exec(
+        select(Student)
+        .where(Student.school_id == school_id)
+        .offset(offset)
+        .limit(limit)
+    ).all()
+    return students

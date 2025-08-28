@@ -1,45 +1,51 @@
 # Frontend de Mattilda
 
-Este es el frontend de Mattilda, construido con React y Vite. Proporciona la interfaz de usuario para gestionar escuelas, estudiantes y facturas.
+Frontend en React + Vite.
+
+---
+
+## Ejemplo visual
+
+<div align="center">
+  <img src="../images/escuelas.png" alt="Pantalla de escuelas" width="600"/>
+</div>
 
 ---
 
 ## Cómo ejecutar
 
-### 1. Instala las dependencias
+### Opción 1: Docker Compose
 
 ```sh
-cd frontend/app
-npm install
+docker-compose up --build
 ```
 
-### 2. Inicia el servidor de desarrollo
+### Opción 2: Manual
 
-```sh
-npm run dev
-```
+1. Instala dependencias:
 
-La app estará disponible en [http://localhost:5173](http://localhost:5173) (o el puerto que indique Vite).
+   ```sh
+   cd frontend/app
+   npm install
+   ```
 
----
+2. Inicia el servidor de desarrollo:
 
-## Proxy de la API
-
-- El frontend está configurado para hacer proxy de las peticiones `/api` al backend (`http://127.0.0.1:8000`) mediante `vite.config.js`.
-- Asegúrate de que el backend esté corriendo antes de iniciar el frontend.
-
----
-
-## Archivos y carpetas importantes
-
-- `src/pages/Schools.jsx`: Página principal para listar escuelas y sus detalles.
-- `src/index.css`, `src/App.css`: Estilos globales y de componentes.
-- `vite.config.js`: Configuración de Vite, incluyendo el proxy.
-- `package.json`: Dependencias y scripts de NPM.
+   ```sh
+   npm run dev
+   ```
 
 ---
 
-## Resolución de problemas
+## Archivos importantes
 
-- Si ves errores de CORS o proxy, revisa que el backend esté en la dirección correcta.
-- Para problemas de estilos o layout, revisa `index.css` y
+- `src/pages/Schools.jsx`, `Students.jsx`, `Invoices.jsx`
+- `vite.config.js`: Configuración de proxy.
+- `images/`: Capturas de pantalla.
+
+---
+
+## Notas
+
+- El frontend usa Bootstrap para el diseño.
+- El proxy de la API está configurado en `vite.config.js`.
