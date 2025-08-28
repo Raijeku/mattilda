@@ -46,7 +46,11 @@ mattilda/
 3. El frontend estará en [http://localhost:5173](http://localhost:5173)  
    El backend en [http://localhost:8000](http://localhost:8000)
 
-### Opción 2: Manual (ver README de backend y frontend)
+
+### Opción 2: Manual
+
+- Consulta el [README del backend](backend/README.md) para instrucciones detalladas del backend.
+- Consulta el [README del frontend](frontend/README.md) para instrucciones detalladas del frontend.
 
 ---
 
