@@ -2,7 +2,7 @@ from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional, List
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from models.student import Student
+    from app.models.student import Student
 
 class School(SQLModel, table=True):
     __tablename__ = "schools"

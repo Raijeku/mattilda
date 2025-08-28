@@ -2,8 +2,8 @@ from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional, List
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from models.invoice import Invoice
-    from models.school import School
+    from app.models.invoice import Invoice
+    from app.models.school import School
 
 class Student(SQLModel, table=True):
     __tablename__ = "students"

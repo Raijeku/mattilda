@@ -2,8 +2,9 @@ from typing import Annotated, List
 from sqlmodel import Session, select
 from fastapi import Depends, HTTPException, Query, APIRouter
 
-from db import get_session
-from models.student import Student
+from app.db import get_session
+from app.models.student import Student
+from app.models.invoice import Invoice
 
 router = APIRouter(prefix="/students", tags=["students"])
 SessionDep = Annotated[Session, Depends(get_session)]
@@ -49,7 +50,7 @@ def get_student(
     """
     student = session.get(Student, student_id)
     if not student:
-        raise HTTPException(status_code=404, detail='Student not found')
+        raise HTTPException(status_code=404, detail='Estudiante no encontrado')
     return student
 
 @router.delete('/{student_id}', response_model=dict)
@@ -64,6 +65,26 @@ def delete_student(
     """
     student = session.get(Student, student_id)
     if not student:
-        raise HTTPException(status_code=404, detail='Student not found')
+        raise HTTPException(status_code=404, detail='Estudiante no encontrado')
     session.delete(student)
     session.commit()
+    return {"message": "Estudiante eliminado exitosamente"}
+
+@router.get('/{student_id}/statement', response_model=List[Invoice])
+def get_student_statement(
+    student_id: int,
+    session: SessionDep
+) -> list[Invoice]:
+    """
+    Recupera el estado de cuenta (facturas) de un estudiante por su ID.
+
+    Este endpoint permite recuperar todas las facturas asociadas a un estudiante específico usando su ID.
+    """
+    student = session.get(Student, student_id)
+    if not student:
+        raise HTTPException(status_code=404, detail='Estudiante no encontrado')
+    invoices = session.exec(
+        select(Invoice)
+        .where(Invoice.student_id == student_id)
+    ).all()
+    return invoices

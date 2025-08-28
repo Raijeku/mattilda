@@ -1,6 +1,7 @@
 from fastapi import FastAPI
-from db import create_db_and_tables
-from routes import student, school, invoice
+
+from app.db import create_db_and_tables
+from app.routes import student, school, invoice
 
 app = FastAPI(
     title='School Invoice API',

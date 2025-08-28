@@ -2,8 +2,8 @@ from typing import Annotated, List
 from sqlmodel import Session, select
 from fastapi import Depends, HTTPException, Query, APIRouter
 
-from db import get_session
-from models.invoice import Invoice
+from app.db import get_session
+from app.models.invoice import Invoice
 
 router = APIRouter(prefix="/invoices", tags=["invoices"])
 SessionDep = Annotated[Session, Depends(get_session)]
@@ -49,7 +49,7 @@ def get_invoice(
     """
     invoice = session.get(Invoice, invoice_id)
     if not invoice:
-        raise HTTPException(status_code=404, detail='Invoice not found')
+        raise HTTPException(status_code=404, detail='Factura no encontrada')
     return invoice
 
 @router.delete('/{invoice_id}', response_model=dict)
@@ -64,4 +64,7 @@ def delete_invoice(
     """
     invoice = session.get(Invoice, invoice_id)
     if not invoice:
-        raise HTTPException(status_code=404, detail='Invoice not found')
+        raise HTTPException(status_code=404, detail='Factura no encontrada')
+    session.delete(invoice)
+    session.commit()
+    return {"message": "Factura eliminada exitosamente"}
